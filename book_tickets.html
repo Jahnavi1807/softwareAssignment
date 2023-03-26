@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Tickets</title>
+    <link rel="stylesheet" type="text/css" href="C:\Users\Jahnavi\PycharmProjects\pythonProject6\book_tickets.css">
+</head>
+<body>
+    <h1>Book Tickets</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h2>Available Events:</h2>
+    <ul>
+        {% for event in events %}
+            <li>
+                <strong>{{ event.name }}</strong> - {{ event.date }} - {{ event.location }}
+                <form method="post" action="{{ url_for('book_tickets') }}">
+                    <input type="hidden" name="event_id" value="{{ event.id }}">
+                    <label>Name:</label>
+                    <input type="text" name="name" required>
+                    <br>
+                    <label>Email:</label>
+                    <input type="email" name="email" required>
+                    <br>
+                    <label>Number of tickets:</label>
+                    <input type="number" name="num_tickets" required>
+                    <br>
+                    <input type="submit" value="Book Tickets">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
